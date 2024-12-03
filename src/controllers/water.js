@@ -1,5 +1,11 @@
 import createHttpError from "http-errors";
-import { createWater, getAllWater, getWaterById } from "../services/water.js";
+import {
+  createWater,
+  deleteWater,
+  getAllWater,
+  getWaterById,
+  updateWater,
+} from "../services/water.js";
 
 export const getWaterController = async (req, res) => {
   const water = await getAllWater();
@@ -29,5 +35,29 @@ export const createWaterController = async (req, res) => {
     status: 200,
     message: "Successfully created water!",
     data: water,
+  });
+};
+
+export const deleteWaterController = async (req, res, next) => {
+  const { waterId } = req.params;
+  const water = await deleteWater(waterId);
+  if (!water) {
+    next(createHttpError(404, "Water not found!"));
+    return;
+  }
+  res.status(204).send();
+};
+export const upsertWaterController = async (req, res, next) => {
+  const { waterId } = req.params;
+  const result = await updateWater(waterId, req.body, { upsert: true });
+  if (!result) {
+    next(createHttpError(404, "Water not found!"));
+    return;
+  }
+  const status = result.isNew ? 201 : 200;
+  res.status(status).json({
+    status,
+    message: "Successfully upserted a water!",
+    data: result,
   });
 };

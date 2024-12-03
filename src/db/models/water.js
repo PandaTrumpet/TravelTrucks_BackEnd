@@ -3,7 +3,7 @@ import { model, Schema } from "mongoose";
 const watersSchema = new Schema(
   {
     date: {
-      type: Date,
+      type: String,
       // required: true,
     },
     volume: {
