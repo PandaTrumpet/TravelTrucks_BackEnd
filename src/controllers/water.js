@@ -57,7 +57,20 @@ export const upsertWaterController = async (req, res, next) => {
   const status = result.isNew ? 201 : 200;
   res.status(status).json({
     status,
-    message: "Successfully upserted a water!",
+    message: `Successfully upserted a water with id ${waterId}! `,
     data: result,
+  });
+};
+export const patchWaterController = async (req, res, next) => {
+  const { waterId } = req.params;
+  const water = await updateWater(waterId, req.body);
+  if (!water) {
+    next(createHttpError(404, "Water not found!"));
+    return;
+  }
+  res.status(200).json({
+    status: 200,
+    message: `Successfully patched a water with id ${waterId}`,
+    data: water,
   });
 };

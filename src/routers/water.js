@@ -6,12 +6,15 @@ import {
   getWaterByIdController,
   getWaterController,
   upsertWaterController,
+  patchWaterController,
 } from "../controllers/water.js";
+import { isValidId } from "../middlewares/isValidId.js";
 const router = Router();
 
 router.get("/", ctrlWrapper(getWaterController));
-router.get("/:waterId", ctrlWrapper(getWaterByIdController));
+router.get("/:waterId", isValidId, ctrlWrapper(getWaterByIdController));
 router.post("/", ctrlWrapper(createWaterController));
-router.delete("/:waterId", ctrlWrapper(deleteWaterController));
-router.put("/:waterId", ctrlWrapper(upsertWaterController));
+router.delete("/:waterId", isValidId, ctrlWrapper(deleteWaterController));
+router.put("/:waterId", isValidId, ctrlWrapper(upsertWaterController));
+router.patch("/:waterId", isValidId, ctrlWrapper(patchWaterController));
 export default router;
