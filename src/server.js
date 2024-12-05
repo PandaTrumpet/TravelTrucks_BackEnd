@@ -5,6 +5,7 @@ import { env } from "./utils/env.js";
 import { config } from "dotenv";
 import router from "./routers/index.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
+import cookieParser from "cookie-parser";
 import { errorHandler } from "./middlewares/errorHandler.js";
 config();
 
@@ -17,6 +18,7 @@ export const startServer = () => {
   app.use(pino({ transport: { target: "pino-pretty" } }));
   app.use(express.json());
   app.use(cors());
+  app.use(cookieParser());
 
   app.get("/", (req, res) => {
     res.json({ message: "Hello  world" });
