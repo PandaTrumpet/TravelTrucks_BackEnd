@@ -11,8 +11,9 @@ import {
 import { validateBody } from "../middlewares/validateBody.js";
 import { isValidId } from "../middlewares/isValidId.js";
 import { createWatersSchema } from "../validation/water.js";
+import { authenticate } from "../middlewares/authenticate.js";
 const router = Router();
-
+router.use(authenticate);
 router.get("/", ctrlWrapper(getWaterController));
 router.get("/:waterId", isValidId, ctrlWrapper(getWaterByIdController));
 router.post(
