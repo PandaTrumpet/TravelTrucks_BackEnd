@@ -13,6 +13,7 @@ import {
   refreshUserSessionController,
   userInformationController,
   upsertUserController,
+  allUsersController,
 } from "../controllers/auth.js";
 // import { authenticate } from "../middlewares/authenticate.js";
 
@@ -36,5 +37,5 @@ router.put(
   validateBody(upsertUsersSchema),
   ctrlWrapper(upsertUserController)
 );
-
+router.get("/allUsers", allUsersController);
 export default router;

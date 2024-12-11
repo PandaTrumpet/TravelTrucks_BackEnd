@@ -1,6 +1,7 @@
 import createHttpError from "http-errors";
 import { ONE_DAY } from "../constans/index.js";
 import {
+  allUsers,
   loginUser,
   logoutUser,
   registerUser,
@@ -93,5 +94,15 @@ export const upsertUserController = async (req, res, next) => {
     status,
     message: `Successfully upserted a user with id ${userId}`,
     data: result,
+  });
+};
+export const allUsersController = async (req, res, next) => {
+  const allUser = await allUsers();
+  console.log(allUser.length);
+
+  res.status(200).json({
+    status: 200,
+    message: "We found all users",
+    data: { allUser },
   });
 };

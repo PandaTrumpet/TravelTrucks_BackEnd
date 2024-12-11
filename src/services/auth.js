@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { randomBytes } from "crypto";
 import { SessionCollection } from "../db/models/session.js";
 import { ONE_DAY, FIFTEEN_MINUTES } from "../constans/index.js";
+
 export const registerUser = async (payload) => {
   const user = await UserCollection.findOne({ email: payload.email });
   if (user) {
@@ -89,4 +90,9 @@ export const updateUser = async (userId, payload, options = {}) => {
     user: userInfo.value,
     isNew: userInfo?.lastErrorObject?.userted,
   };
+};
+export const allUsers = async () => {
+  const allUser = await UserCollection.countDocuments();
+
+  return allUser;
 };
