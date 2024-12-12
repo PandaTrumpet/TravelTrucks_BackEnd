@@ -8,7 +8,10 @@ import {
 } from "../services/water.js";
 
 export const getWaterController = async (req, res) => {
-  const water = await getAllWater();
+  const { _id: userId } = req.user;
+  const water = await getAllWater(userId);
+  // console.log(req.user);
+
   res.status(200).json({
     status: 200,
     message: "All water",
@@ -29,7 +32,8 @@ export const getWaterByIdController = async (req, res) => {
   });
 };
 export const createWaterController = async (req, res) => {
-  const water = await createWater(req.body);
+  const { _id: userId } = req.user;
+  const water = await createWater({ ...req.body, userId });
 
   res.status(200).json({
     status: 200,
