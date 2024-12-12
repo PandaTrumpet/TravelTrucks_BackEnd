@@ -12,7 +12,7 @@ const watersSchema = new Schema(
     },
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "user",
+      ref: "users",
       // required: true,
     },
   },

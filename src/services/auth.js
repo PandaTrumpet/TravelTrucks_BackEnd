@@ -1,5 +1,5 @@
 import createHttpError from "http-errors";
-import { UserCollection } from "../db/models/user.js";
+import { UserCollection } from "../db/models/users.js";
 
 import { randomBytes } from "crypto";
 import { SessionCollection } from "../db/models/session.js";
