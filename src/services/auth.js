@@ -1,9 +1,10 @@
 import createHttpError from "http-errors";
-import { UserCollection } from "../db/models/users.js";
-import bcrypt from "bcrypt";
+import { UserCollection } from "../db/models/User.js";
+
 import { randomBytes } from "crypto";
-import { SessionCollection } from "../db/models/session.js";
+import { SessionCollection } from "../db/models/Session.js";
 import { ONE_DAY, FIFTEEN_MINUTES } from "../constans/index.js";
+import { hashPassword, comparePassword } from "../utils/hash.js";
 
 export const registerUser = async (payload) => {
   const user = await UserCollection.findOne({ email: payload.email });
@@ -12,7 +13,7 @@ export const registerUser = async (payload) => {
     throw createHttpError(409, "Email in use!");
   }
 
-  const encryptedPassword = await bcrypt.hash(payload.password, 10);
+  const encryptedPassword = await hashPassword(payload.password);
   return await UserCollection.create({
     ...payload,
     password: encryptedPassword,
@@ -25,9 +26,9 @@ export const loginUser = async (payload) => {
     throw createHttpError(404, "User not found!");
   }
 
-  const isEqual = await bcrypt.compare(payload.password, user.password);
+  const isEqual = await comparePassword(payload.password, user.password);
   if (!isEqual) {
-    throw createHttpError(401, "Unauthorized");
+    throw createHttpError(401, "Password invalid!");
   }
 
   await SessionCollection.deleteOne({ userId: user._id });

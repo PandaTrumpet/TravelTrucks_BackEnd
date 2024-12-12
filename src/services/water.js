@@ -1,6 +1,6 @@
-import { SessionCollection } from "../db/models/session.js";
-import { UserCollection } from "../db/models/users.js";
-import { WatersCollection } from "../db/models/water.js";
+import { SessionCollection } from "../db/models/Session.js";
+import { UserCollection } from "../db/models/User.js";
+import { WatersCollection } from "../db/models/Water.js";
 export const getAllWater = async () => {
   const water = await WatersCollection.find();
   console.log(water);
