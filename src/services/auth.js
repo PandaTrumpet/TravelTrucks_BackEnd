@@ -1,8 +1,8 @@
 import createHttpError from "http-errors";
-import { UserCollection } from "../db/models/User.js";
+import { UserCollection } from "../db/models/user.js";
 
 import { randomBytes } from "crypto";
-import { SessionCollection } from "../db/models/Session.js";
+import { SessionCollection } from "../db/models/session.js";
 import { ONE_DAY, FIFTEEN_MINUTES } from "../constans/index.js";
 import { hashPassword, comparePassword } from "../utils/hash.js";
 
@@ -42,6 +42,7 @@ export const loginUser = async (payload) => {
     refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
   });
 };
+
 export const logoutUser = async (sessionId) => {
   await SessionCollection.deleteOne({ _id: sessionId });
 };
