@@ -1,4 +1,6 @@
 import { model, Schema } from "mongoose";
+import { mongooseSaveError, setUpdateSettings } from "./hooks.js";
+// import { emailRegexp } from "../../constans/user-constans.js";
 const userSchema = new Schema(
   {
     name: {
@@ -16,6 +18,9 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
+      // match: emailRegexp,
+      // регулярное выражение для мейла
     },
     password: {
       type: String,
@@ -42,4 +47,8 @@ userSchema.methods.toJSON = function () {
   delete obj.password;
   return obj;
 };
+
+userSchema.post("save", mongooseSaveError);
+userSchema.pre("findOneAndUpdate", setUpdateSettings);
+userSchema.post("findOneAndUpdate", mongooseSaveError);
 export const UserCollection = model("users", userSchema);

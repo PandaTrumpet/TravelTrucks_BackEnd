@@ -1,3 +1,5 @@
+import { SessionCollection } from "../db/models/session.js";
+import { UserCollection } from "../db/models/users.js";
 import { WatersCollection } from "../db/models/water.js";
 export const getAllWater = async () => {
   const water = await WatersCollection.find();
