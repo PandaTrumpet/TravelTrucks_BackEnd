@@ -59,6 +59,9 @@ export const refreshUserSessionController = async (req, res, next) => {
     sesionId: req.cookies.sesionId,
     refreshToken: req.cookies.refreshToken,
   });
+  if (!session) {
+    throw createHttpError(401, "Session not found!");
+  }
   setupSession(res, session);
   res.json({
     status: 200,

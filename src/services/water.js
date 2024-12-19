@@ -5,8 +5,9 @@ export const getAllWater = async (userId) => {
 
   return water;
 };
-export const getWaterById = async (waterId) => {
-  const water = await WatersCollection.findById(waterId);
+export const getWater = async (filter) => {
+  const water = await WatersCollection.findOne(filter);
+
   return water;
 };
 export const createWater = async (payload) => {

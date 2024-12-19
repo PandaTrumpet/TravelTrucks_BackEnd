@@ -3,7 +3,7 @@ import {
   createWater,
   deleteWater,
   getAllWater,
-  getWaterById,
+  getWater,
   updateWater,
 } from "../services/water.js";
 
@@ -19,8 +19,12 @@ export const getWaterController = async (req, res) => {
   });
 };
 export const getWaterByIdController = async (req, res) => {
+  const { _id: userId } = req.user;
   const { waterId } = req.params;
-  const water = await getWaterById(waterId);
+
+  console.log(req.params);
+
+  const water = await getWater({ _id: waterId, userId });
   if (!water) {
     throw createHttpError(404, "Water not found!");
   }
@@ -44,7 +48,8 @@ export const createWaterController = async (req, res) => {
 
 export const deleteWaterController = async (req, res, next) => {
   const { waterId } = req.params;
-  const water = await deleteWater(waterId);
+  const { _id: userId } = req.user;
+  const water = await deleteWater({ _id: waterId, userId });
   if (!water) {
     next(createHttpError(404, "Water not found!"));
     return;
@@ -52,8 +57,11 @@ export const deleteWaterController = async (req, res, next) => {
   res.status(204).send();
 };
 export const upsertWaterController = async (req, res, next) => {
+  const { _id: userId } = req.user;
   const { waterId } = req.params;
-  const result = await updateWater(waterId, req.body, { upsert: true });
+  const result = await updateWater({ _id: waterId, userId }, req.body, {
+    upsert: true,
+  });
   if (!result) {
     next(createHttpError(404, "Water not found!"));
     return;
@@ -67,7 +75,8 @@ export const upsertWaterController = async (req, res, next) => {
 };
 export const patchWaterController = async (req, res, next) => {
   const { waterId } = req.params;
-  const water = await updateWater(waterId, req.body);
+  const { _id: userId } = req.user;
+  const water = await updateWater({ _id: waterId, userId }, req.body);
   if (!water) {
     next(createHttpError(404, "Water not found!"));
     return;
