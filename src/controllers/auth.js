@@ -20,6 +20,8 @@ export const registerUserController = async (req, res) => {
 
 export const loginUserController = async (req, res, next) => {
   const session = await loginUser(req.body);
+  console.log(session);
+
   res.cookie("refreshToken", session.refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
@@ -36,9 +38,12 @@ export const loginUserController = async (req, res, next) => {
 };
 
 export const logoutUserController = async (req, res, next) => {
-  if (req.cookies.sessionId) {
-    await logoutUser(req.cookies.sessionId);
+  if (!req.cookies.sessionId) {
+    throw createHttpError(401, "Session not found!");
   }
+
+  await logoutUser(req.cookies.sessionId);
+
   res.clearCookie("sessionId");
   res.clearCookie("refreshToken");
   res.status(204).send();
@@ -56,9 +61,10 @@ const setupSession = (res, session) => {
 };
 export const refreshUserSessionController = async (req, res, next) => {
   const session = await refreshUserSession({
-    sesionId: req.cookies.sesionId,
+    sessionId: req.cookies.sessionId,
     refreshToken: req.cookies.refreshToken,
   });
+
   if (!session) {
     throw createHttpError(401, "Session not found!");
   }
@@ -74,7 +80,7 @@ export const refreshUserSessionController = async (req, res, next) => {
 
 export const userInformationController = async (req, res, next) => {
   const { userId } = req.params;
-  console.log(userId);
+  // console.log(userId);
 
   const user = await userInformation(userId);
   res.status(200).json({

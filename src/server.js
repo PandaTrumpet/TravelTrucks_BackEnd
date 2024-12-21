@@ -17,8 +17,8 @@ const app = express({
 export const startServer = () => {
   app.use(pino({ transport: { target: "pino-pretty" } }));
   app.use(express.json());
-  app.use(cors());
   app.use(cookieParser());
+  app.use(cors());
 
   app.get("/", (req, res) => {
     res.json({ message: "Hello  world" });
