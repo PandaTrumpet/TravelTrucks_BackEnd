@@ -1,7 +1,7 @@
 import { WatersCollection } from "../db/models/water.js";
 export const getAllWater = async (userId) => {
   const water = await WatersCollection.find({ userId });
-  console.log(water);
+  // console.log(water);
 
   return water;
 };
@@ -29,4 +29,23 @@ export const updateWater = async (waterId, payload, options = {}) => {
     water: rawResult.value,
     isNew: rawResult?.lastErrorObject?.upserted,
   };
+};
+
+export const getWatersByMonth = async (userId, month, year) => {
+  try {
+    // Формируем регулярное выражение для фильтрации по месяцу
+    const regex = new RegExp(`^${year}-${month.toString().padStart(2, "0")}`);
+    console.log(regex);
+
+    // Фильтруем по userId и дате
+    const waters = await WatersCollection.find({
+      userId,
+      date: { $regex: regex },
+    }).sort({ date: 1 }); // Сортировка по дате (от старых к новым)
+
+    return waters;
+  } catch (error) {
+    console.error("Error in getWatersByMonth:", error);
+    throw new Error("Failed to fetch waters by month");
+  }
 };

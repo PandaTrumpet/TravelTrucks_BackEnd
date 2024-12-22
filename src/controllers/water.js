@@ -4,13 +4,14 @@ import {
   deleteWater,
   getAllWater,
   getWater,
+  getWatersByMonth,
   updateWater,
 } from "../services/water.js";
 
 export const getWaterController = async (req, res) => {
   const { _id: userId } = req.user;
+
   const water = await getAllWater(userId);
-  // console.log(req.user);
 
   res.status(200).json({
     status: 200,
@@ -86,4 +87,37 @@ export const patchWaterController = async (req, res, next) => {
     message: `Successfully patched a water with id ${waterId}`,
     data: water,
   });
+};
+
+export const getWatersByMonthController = async (req, res) => {
+  try {
+    const { _id: userId } = req.user; // ID пользователя из авторизации
+    // console.log(userId);
+    console.log(userId);
+    const { month, year } = req.query; // Получаем месяц и год из query параметров
+
+    // Проверяем, что месяц и год переданы
+    if (!month || !year) {
+      return res.status(400).json({
+        status: 400,
+        message: "Month and year are required",
+      });
+    }
+
+    // Получаем данные за указанный месяц
+    const waters = await getWatersByMonth(userId, month, year);
+
+    res.status(200).json({
+      status: 200,
+      message: `Waters data for ${month}/${year}`,
+      data: waters,
+    });
+  } catch (error) {
+    console.error("Error in getWatersByMonthController:", error);
+    res.status(500).json({
+      status: 500,
+      message: "Failed to fetch waters by month",
+      error: error.message,
+    });
+  }
 };

@@ -4,7 +4,7 @@ const watersSchema = new Schema(
   {
     date: {
       type: String,
-      // required: true,
+      required: true,
     },
     volume: {
       type: Number,
