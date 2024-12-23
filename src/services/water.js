@@ -6,7 +6,7 @@ export const getAllWater = async (userId) => {
   return water;
 };
 export const getWater = async (filter) => {
-  const water = await WatersCollection.findOne(filter);
+  const water = await WatersCollection.findOne(filter)``;
 
   return water;
 };
@@ -31,21 +31,10 @@ export const updateWater = async (waterId, payload, options = {}) => {
   };
 };
 
-export const getWatersByMonth = async (userId, month, year) => {
-  try {
-    // Формируем регулярное выражение для фильтрации по месяцу
-    const regex = new RegExp(`^${year}-${month.toString().padStart(2, "0")}`);
-    console.log(regex);
+export const getWatersByMonth = async (userId, date) => {
+  const water = await WatersCollection.find({ userId, date });
 
-    // Фильтруем по userId и дате
-    const waters = await WatersCollection.find({
-      userId,
-      date: { $regex: regex },
-    }).sort({ date: 1 }); // Сортировка по дате (от старых к новым)
+  // console.log(water[0].date);
 
-    return waters;
-  } catch (error) {
-    console.error("Error in getWatersByMonth:", error);
-    throw new Error("Failed to fetch waters by month");
-  }
+  return water;
 };

@@ -4,7 +4,7 @@ import createHttpError from "http-errors";
 export const isValidId = (req, res, next) => {
   const { waterId } = req.params;
   if (!isValidObjectId(waterId)) {
-    throw createHttpError(400, "Invalid Student ID format");
+    throw createHttpError(400, "Invalid Water ID format");
   }
 
   next();

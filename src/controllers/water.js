@@ -19,11 +19,10 @@ export const getWaterController = async (req, res) => {
     data: water,
   });
 };
+
 export const getWaterByIdController = async (req, res) => {
   const { _id: userId } = req.user;
   const { waterId } = req.params;
-
-  console.log(req.params);
 
   const water = await getWater({ _id: waterId, userId });
   if (!water) {
@@ -38,6 +37,7 @@ export const getWaterByIdController = async (req, res) => {
 };
 export const createWaterController = async (req, res) => {
   const { _id: userId } = req.user;
+
   const water = await createWater({ ...req.body, userId });
 
   res.status(200).json({
@@ -89,35 +89,18 @@ export const patchWaterController = async (req, res, next) => {
   });
 };
 
-export const getWatersByMonthController = async (req, res) => {
-  try {
-    const { _id: userId } = req.user; // ID пользователя из авторизации
-    // console.log(userId);
-    console.log(userId);
-    const { month, year } = req.query; // Получаем месяц и год из query параметров
+export const getWatersByMonthController = async (req, res, next) => {
+  const { _id: userId } = req.user;
 
-    // Проверяем, что месяц и год переданы
-    if (!month || !year) {
-      return res.status(400).json({
-        status: 400,
-        message: "Month and year are required",
-      });
-    }
+  const { date } = req.params;
+  const newDate = toString(date);
+  console.log(date);
+  console.log(newDate);
 
-    // Получаем данные за указанный месяц
-    const waters = await getWatersByMonth(userId, month, year);
-
-    res.status(200).json({
-      status: 200,
-      message: `Waters data for ${month}/${year}`,
-      data: waters,
-    });
-  } catch (error) {
-    console.error("Error in getWatersByMonthController:", error);
-    res.status(500).json({
-      status: 500,
-      message: "Failed to fetch waters by month",
-      error: error.message,
-    });
-  }
+  const water = await getWatersByMonth(userId, date);
+  res.status(200).json({
+    status: 200,
+    message: "gOOD",
+    data: water,
+  });
 };
