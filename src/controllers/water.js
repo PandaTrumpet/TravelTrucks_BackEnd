@@ -4,6 +4,7 @@ import {
   deleteWater,
   getAllWater,
   getWater,
+  getWatersByDay,
   getWatersByMonth,
   updateWater,
 } from "../services/water.js";
@@ -93,14 +94,35 @@ export const getWatersByMonthController = async (req, res, next) => {
   const { _id: userId } = req.user;
 
   const { date } = req.params;
-  const newDate = toString(date);
+
   console.log(date);
-  console.log(newDate);
 
   const water = await getWatersByMonth(userId, date);
+
+  if (!water || water.length === 0) {
+    next(createHttpError(404, "No water records found for the given month"));
+    return;
+  }
   res.status(200).json({
     status: 200,
-    message: "gOOD",
+    message: "Successfully found water for a month!",
+    data: water,
+  });
+};
+
+export const getWatersByDayController = async (req, res, next) => {
+  const { _id: userId } = req.user;
+  console.log(userId);
+  const { date } = req.params;
+  const water = await getWatersByDay(userId, date);
+
+  if (!water || water.length === 0) {
+    next(createHttpError(404, "No water records found for the given day!"));
+    return;
+  }
+  res.status(200).json({
+    status: 200,
+    message: "Successfully found water for a day!",
     data: water,
   });
 };

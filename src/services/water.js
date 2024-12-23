@@ -31,10 +31,22 @@ export const updateWater = async (waterId, payload, options = {}) => {
   };
 };
 
+// export const getWatersByMonth = async (userId, date) => {
+//   const water = await WatersCollection.find({ userId, date });
+
+//   return water;
+// };
+
 export const getWatersByMonth = async (userId, date) => {
+  // Ищем записи, у которых userId совпадает, а date начинается с "YYYY-MM"
+  const water = await WatersCollection.find({
+    userId,
+    date: { $regex: `^${date}` }, // Используем регулярное выражение для фильтрации
+  });
+
+  return water;
+};
+export const getWatersByDay = async (userId, date) => {
   const water = await WatersCollection.find({ userId, date });
-
-  // console.log(water[0].date);
-
   return water;
 };
