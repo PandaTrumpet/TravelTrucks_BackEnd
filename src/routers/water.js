@@ -8,6 +8,7 @@ import {
   upsertWaterController,
   patchWaterController,
   getWatersByMonthController,
+  getWatersByDayController,
 } from "../controllers/water.js";
 import { validateBody } from "../middlewares/validateBody.js";
 import { isValidId } from "../middlewares/isValidId.js";
@@ -26,6 +27,6 @@ router.post(
 router.delete("/:waterId", isValidId, ctrlWrapper(deleteWaterController));
 router.put("/:waterId", isValidId, ctrlWrapper(upsertWaterController));
 router.patch("/:waterId", isValidId, ctrlWrapper(patchWaterController));
-router.get("/day/:date");
+router.get("/day/:date", ctrlWrapper(getWatersByDayController));
 router.get("/month/:date", ctrlWrapper(getWatersByMonthController));
 export default router;
