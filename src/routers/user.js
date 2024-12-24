@@ -5,10 +5,11 @@ import {
   userInformationController,
   upsertUserController,
   allUsersController,
-} from "../controllers/auth.js";
+} from "../controllers/user.js";
 import { upsertUsersSchema } from "../validation/user.js";
 import { upload } from "../middlewares/multer.js";
 const userRouter = Router();
+userRouter.get("/all-users", ctrlWrapper(allUsersController));
 userRouter.get("/:userId", ctrlWrapper(userInformationController));
 userRouter.put(
   "/:userId",
@@ -17,5 +18,5 @@ userRouter.put(
 
   ctrlWrapper(upsertUserController)
 );
-userRouter.get("/allUsers", allUsersController);
+
 export default userRouter;

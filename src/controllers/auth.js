@@ -1,14 +1,7 @@
 import createHttpError from "http-errors";
 import { ONE_DAY } from "../constans/index.js";
-import {
-  allUsers,
-  loginUser,
-  logoutUser,
-  registerUser,
-  updateUser,
-  userInformation,
-} from "../services/auth.js";
-import { saveFileToUploadDir } from "../utils/saveFileToUploadDir.js";
+import { loginUser, logoutUser, registerUser } from "../services/auth.js";
+
 import { refreshUserSession } from "../services/auth.js";
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -76,54 +69,5 @@ export const refreshUserSessionController = async (req, res, next) => {
     data: {
       accessToken: session.accessToken,
     },
-  });
-};
-
-export const userInformationController = async (req, res, next) => {
-  const { userId } = req.params;
-  // console.log(userId);
-
-  const user = await userInformation(userId);
-  res.status(200).json({
-    status: 200,
-    message: "User full information!",
-    data: user,
-  });
-};
-
-export const upsertUserController = async (req, res, next) => {
-  const { userId } = req.params;
-  const photo = req.file;
-  let photoUrl;
-  if (photo) {
-    photoUrl = await saveFileToUploadDir(photo);
-  }
-  console.log(photo);
-
-  const result = await updateUser(
-    userId,
-    { ...req.body, avatar: photoUrl },
-    { upsert: true }
-  );
-  if (!result) {
-    next(createHttpError(404, "User not found!"));
-    return;
-  }
-  const status = result.isNew ? 201 : 200;
-  console.log(status);
-  res.status(status).json({
-    status,
-    message: `Successfully upserted a user with id ${userId}`,
-    data: result,
-  });
-};
-export const allUsersController = async (req, res, next) => {
-  const allUser = await allUsers();
-  console.log(allUser.length);
-
-  res.status(200).json({
-    status: 200,
-    message: "We found all users",
-    data: { allUser },
   });
 };
