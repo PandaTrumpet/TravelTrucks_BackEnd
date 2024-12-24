@@ -8,6 +8,7 @@ import {
   updateUser,
   userInformation,
 } from "../services/auth.js";
+import { saveFileToUploadDir } from "../utils/saveFileToUploadDir.js";
 import { refreshUserSession } from "../services/auth.js";
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -92,7 +93,18 @@ export const userInformationController = async (req, res, next) => {
 
 export const upsertUserController = async (req, res, next) => {
   const { userId } = req.params;
-  const result = await updateUser(userId, req.body, { upsert: true });
+  const photo = req.file;
+  let photoUrl;
+  if (photo) {
+    photoUrl = await saveFileToUploadDir(photo);
+  }
+  console.log(photo);
+
+  const result = await updateUser(
+    userId,
+    { ...req.body, avatar: photoUrl },
+    { upsert: true }
+  );
   if (!result) {
     next(createHttpError(404, "User not found!"));
     return;
