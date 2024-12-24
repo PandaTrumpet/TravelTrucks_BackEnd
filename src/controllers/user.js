@@ -1,6 +1,8 @@
 import { allUsers, updateUser, userInformation } from "../services/user.js";
 import createHttpError from "http-errors";
 import { saveFileToUploadDir } from "../utils/saveFileToUploadDir.js";
+import { env } from "../utils/env.js";
+import { saveFileToCloudinary } from "../utils/saveFileToCloudinary.js";
 export const userInformationController = async (req, res, next) => {
   const { userId } = req.params;
   // console.log(userId);
@@ -17,8 +19,13 @@ export const upsertUserController = async (req, res, next) => {
   const { userId } = req.params;
   const photo = req.file;
   let photoUrl;
+
   if (photo) {
-    photoUrl = await saveFileToUploadDir(photo);
+    if (env("ENABLE_CLOUDINARY") === "true") {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
   }
   console.log(photo);
 
