@@ -14,6 +14,8 @@ import {
   refreshUserSessionController,
   requestResetEmailController,
   resetPasswordController,
+  getGoogleOAuthUrlController,
+  loginWithGoogleController,
 } from "../controllers/auth.js";
 // import { authenticate } from "../middlewares/authenticate.js";
 
@@ -41,5 +43,6 @@ router.post(
   validateBody(requestResetEmailSchema),
   ctrlWrapper(requestResetEmailController)
 );
-
+router.get("/get-oauth-url", ctrlWrapper(getGoogleOAuthUrlController));
+router.post("/confirm-oauth", ctrlWrapper(loginWithGoogleController));
 export default router;

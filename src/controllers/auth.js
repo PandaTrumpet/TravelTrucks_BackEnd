@@ -1,6 +1,7 @@
 import createHttpError from "http-errors";
 import { ONE_DAY } from "../constans/index.js";
 import {
+  loginOrSignupWithGoogle,
   loginUser,
   logoutUser,
   registerUser,
@@ -9,6 +10,7 @@ import {
 } from "../services/auth.js";
 
 import { refreshUserSession } from "../services/auth.js";
+import { generateAuthUrl } from "../utils/googleOAuth2.js";
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
   res.status(201).json({
@@ -93,5 +95,25 @@ export const resetPasswordController = async (req, res) => {
     message: "Password was successfully reset!",
     status: 200,
     data: {},
+  });
+};
+
+export const getGoogleOAuthUrlController = async (req, res) => {
+  const url = generateAuthUrl();
+  res.json({
+    status: 200,
+    message: "Successfully generated google oauth url!",
+    data: { url },
+  });
+};
+export const loginWithGoogleController = async (req, res) => {
+  const session = await loginOrSignupWithGoogle(req.body.code);
+  setupSession(res, session);
+  res.json({
+    status: 200,
+    message: "Successfully logged in via Google OAuth!",
+    data: {
+      accessToken: session.accessToken,
+    },
   });
 };
