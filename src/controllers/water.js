@@ -115,6 +115,8 @@ export const getWatersByDayController = async (req, res, next) => {
   console.log(userId);
   const { date } = req.params;
   const water = await getWatersByDay(userId, date);
+  const totalWaterPerDay = water.reduce((acc, item) => acc + item.volume, 0);
+  // console.log(totalWaterDay);
 
   if (!water || water.length === 0) {
     next(createHttpError(404, "No water records found for the given day!"));
@@ -124,5 +126,6 @@ export const getWatersByDayController = async (req, res, next) => {
     status: 200,
     message: "Successfully found water for a day!",
     data: water,
+    totalWaterPerDay,
   });
 };
