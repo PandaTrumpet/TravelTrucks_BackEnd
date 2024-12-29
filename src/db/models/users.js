@@ -32,7 +32,7 @@ const userSchema = new Schema(
       type: String,
       // required: true,
     },
-    waterNorma: {
+    waterDailyNorma: {
       type: Number,
       default: 1.5,
       // required: true,

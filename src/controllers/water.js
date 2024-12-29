@@ -8,6 +8,8 @@ import {
   getWatersByMonth,
   updateWater,
 } from "../services/water.js";
+import { calculateWaterPercentage } from "../utils/calculateWaterPercentage.js";
+import { userInformation } from "../services/user.js";
 
 export const getWaterController = async (req, res) => {
   const { _id: userId } = req.user;
@@ -112,11 +114,18 @@ export const getWatersByMonthController = async (req, res, next) => {
 
 export const getWatersByDayController = async (req, res, next) => {
   const { _id: userId } = req.user;
-  console.log(userId);
+  // console.log(userId);
   const { date } = req.params;
   const water = await getWatersByDay(userId, date);
   const totalWaterPerDay = water.reduce((acc, item) => acc + item.volume, 0);
   // console.log(totalWaterDay);
+  const userInfo = await userInformation(userId);
+  const waterDailyNormaOfUser = userInfo.waterDailyNorma;
+
+  const waterPercentage = calculateWaterPercentage(
+    waterDailyNormaOfUser,
+    totalWaterPerDay
+  );
 
   if (!water || water.length === 0) {
     next(createHttpError(404, "No water records found for the given day!"));
@@ -127,5 +136,6 @@ export const getWatersByDayController = async (req, res, next) => {
     message: "Successfully found water for a day!",
     data: water,
     totalWaterPerDay,
+    waterPercentage,
   });
 };

@@ -5,5 +5,5 @@ import userRouter from "./user.js";
 const router = Router();
 router.use("/api/auth", authRouter);
 router.use("/api/water", waterRouter);
-router.use("/api/user", userRouter);
+router.use("/api/users", userRouter);
 export default router;
