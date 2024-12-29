@@ -46,7 +46,16 @@ export const getWatersByMonth = async (userId, date) => {
 
   return water;
 };
+// export const getWatersByDay = async (userId, date) => {
+//   const water = await WatersCollection.find({ userId, date });
+//   return water;
+// };
+
 export const getWatersByDay = async (userId, date) => {
-  const water = await WatersCollection.find({ userId, date });
+  const water = await WatersCollection.aggregate([
+    {
+      $match: { userId, date },
+    },
+  ]);
   return water;
 };

@@ -8,7 +8,7 @@ import {
   requestResetToken,
   resetPassword,
 } from "../services/auth.js";
-
+import { userInformation } from "../services/user.js";
 import { refreshUserSession } from "../services/auth.js";
 import { generateAuthUrl } from "../utils/googleOAuth2.js";
 export const registerUserController = async (req, res) => {
@@ -22,7 +22,9 @@ export const registerUserController = async (req, res) => {
 
 export const loginUserController = async (req, res, next) => {
   const session = await loginUser(req.body);
-  console.log(session);
+  const userId = session.userId.toString();
+
+  const userData = await userInformation(userId); // console.log(session);
 
   res.cookie("refreshToken", session.refreshToken, {
     httpOnly: true,
@@ -35,7 +37,7 @@ export const loginUserController = async (req, res, next) => {
   res.json({
     status: 200,
     message: "Successfully logged in an user!",
-    data: { accessToken: session.accessToken },
+    data: { accessToken: session.accessToken, userData },
   });
 };
 

@@ -1,4 +1,4 @@
-import { allUsers, updateUser, userInformation } from "../services/user.js";
+import { usersAmount, updateUser, userInformation } from "../services/user.js";
 import createHttpError from "http-errors";
 import { saveFileToUploadDir } from "../utils/saveFileToUploadDir.js";
 import { env } from "../utils/env.js";
@@ -27,7 +27,7 @@ export const upsertUserController = async (req, res, next) => {
       photoUrl = await saveFileToUploadDir(photo);
     }
   }
-  console.log(photo);
+  // console.log(photo);
 
   const result = await updateUser(
     userId,
@@ -39,16 +39,16 @@ export const upsertUserController = async (req, res, next) => {
     return;
   }
   const status = result.isNew ? 201 : 200;
-  console.log(status);
+  // console.log(status);
   res.status(status).json({
     status,
     message: `Successfully upserted a user with id ${userId}`,
     data: result,
   });
 };
-export const allUsersController = async (req, res, next) => {
-  const allUser = await allUsers();
-  console.log(allUser.length);
+export const usersAmountController = async (req, res, next) => {
+  const allUser = await usersAmount();
+  // console.log(allUser.length);
 
   res.status(200).json({
     status: 200,

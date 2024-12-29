@@ -19,7 +19,7 @@ export const updateUser = async (userId, payload, options = {}) => {
     isNew: userInfo?.lastErrorObject?.userted,
   };
 };
-export const allUsers = async () => {
+export const usersAmount = async () => {
   const allUser = await UserCollection.find();
 
   return allUser;

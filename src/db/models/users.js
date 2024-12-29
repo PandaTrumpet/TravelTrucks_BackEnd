@@ -1,25 +1,27 @@
 import { model, Schema } from "mongoose";
 import { mongooseSaveError, setUpdateSettings } from "./hooks.js";
-// import { emailRegexp } from "../../constans/user-constans.js";
+import { emailRegexp } from "../../constans/user-constans.js";
 const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      // required: true,
     },
     weight: {
       type: Number,
       // required: true,
+      default: 0,
     },
-    time: {
-      type: Date,
+    activeTime: {
+      type: Number,
+      default: 0,
       // required: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      // match: emailRegexp,
+      match: emailRegexp,
       // регулярное выражение для мейла
     },
     password: {
@@ -30,8 +32,9 @@ const userSchema = new Schema(
       type: String,
       // required: true,
     },
-    waterRate: {
+    waterNorma: {
       type: Number,
+      default: 1.5,
       // required: true,
     },
     gender: {
