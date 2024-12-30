@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 import {
   createWaterController,
@@ -16,7 +17,9 @@ import { createWatersSchema, upsertWaterSchema } from "../validation/water.js";
 import { authenticate } from "../middlewares/authenticate.js";
 
 const router = Router();
+
 router.use(authenticate);
+
 router.get("/", ctrlWrapper(getWaterController));
 router.get("/:waterId", isValidId, ctrlWrapper(getWaterByIdController));
 router.post(
@@ -40,4 +43,5 @@ router.patch(
 );
 router.get("/day/:date", ctrlWrapper(getWatersByDayController));
 router.get("/month/:date", ctrlWrapper(getWatersByMonthController));
+
 export default router;

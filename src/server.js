@@ -8,6 +8,7 @@ import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { UPLOAD_DIR } from "./constans/index.js";
+import { swaggerDocs } from "./middlewares/swaggerDocs.js";
 
 config();
 
@@ -22,6 +23,9 @@ export const startServer = () => {
   app.use(cookieParser());
   app.use(cors());
   app.use("/uploads", express.static(UPLOAD_DIR));
+
+  app.use("/api-docs", swaggerDocs());
+
   app.get("/", (req, res) => {
     res.json({ message: "Hello  world" });
   });
