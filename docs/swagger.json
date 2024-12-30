@@ -29,10 +29,56 @@
   ],
   "paths": {
     "/water/{id}": {
-      "get": {
-        "tags": [
-          "Waters"
+      "delete": {
+        "tags": ["Waters"],
+        "summary": "Delete water record by id",
+        "operationId": "deleteWater",
+        "description": "Delete a water record by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "63f12345e4567ab89cde9012"
+            },
+            "description": "The ID of the water record to be deleted"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted the water record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 204
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/paths/~1water/get/responses/401"
+          },
+          "404": {
+            "$ref": "#/paths/~1water~1%7Bid%7D/get/responses/404"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Waters"],
         "summary": "Get water by id",
         "operationId": "getWater",
         "description": "Get water by id",
@@ -59,11 +105,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -75,7 +117,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/paths/~1water/get/responses/200/content/application~1json/schema/properties/data/properties/data/items"
+                      "$ref": "#/paths/~1water/post/responses/201/content/application~1json/schema/properties/data"
                     }
                   }
                 }
@@ -91,11 +133,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -107,9 +145,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "message"
-                      ],
+                      "required": ["message"],
                       "properties": {
                         "message": {
                           "type": "string",
@@ -127,113 +163,23 @@
     },
     "/water": {
       "get": {
-        "tags": [
-          "Students"
-        ],
-        "summary": "Get list of students",
-        "operationId": "getStudents",
-        "description": "Get list of users with this endpoint",
+        "tags": ["Waters"],
+        "summary": "Get all water records",
+        "operationId": "getAllWater",
+        "description": "Retrieve all water records from the system",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "page",
-            "schema": {
-              "type": "integer"
-            },
-            "example": 1
-          },
-          {
-            "in": "query",
-            "name": "perPage",
-            "schema": {
-              "type": "integer",
-              "example": 10
-            }
-          },
-          {
-            "in": "query",
-            "name": "sortBy",
-            "schema": {
-              "type": "string",
-              "example": "age"
-            },
-            "description": "All student's fields can be mentioned. Default value - _id"
-          },
-          {
-            "in": "query",
-            "name": "sortOrder",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
-              "example": "asc"
-            }
-          },
-          {
-            "in": "query",
-            "name": "minAvgMark",
-            "schema": {
-              "type": "number",
-              "example": 4
-            }
-          },
-          {
-            "in": "query",
-            "name": "maxAvgMark",
-            "schema": {
-              "type": "number",
-              "example": 10
-            }
-          },
-          {
-            "in": "query",
-            "name": "minAge",
-            "schema": {
-              "type": "number",
-              "example": 10
-            }
-          },
-          {
-            "in": "query",
-            "name": "maxAge",
-            "schema": {
-              "type": "number",
-              "example": 16
-            }
-          },
-          {
-            "in": "query",
-            "name": "gender",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "male",
-                "female",
-                "other"
-              ],
-              "example": "male"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "Successfully found students!",
+            "description": "Successfully retrieved all water records",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -241,78 +187,28 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found students!"
+                      "example": "Successfully fetched all water records."
                     },
                     "data": {
-                      "type": "object",
-                      "required": [
-                        "data",
-                        "page",
-                        "perPage",
-                        "totalItems",
-                        "totalPages",
-                        "hasNextPage",
-                        "hasPreviousPage"
-                      ],
-                      "properties": {
-                        "data": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "required": [
-                              "date",
-                              "volume",
-                              "userId"
-                            ],
-                            "properties": {
-                              "_id": {
-                                "description": "Water's id",
-                                "type": "string",
-                                "example": "65e4decdd286b30065d54af9"
-                              },
-                              "date": {
-                                "description": "Water's date",
-                                "type": "string",
-                                "example": "2024-12-23T20:23"
-                              },
-                              "volume": {
-                                "description": "Water's volume. Should be minimum 50",
-                                "type": "number",
-                                "example": 50
-                              },
-                              "userId": {
-                                "description": "Water's user id",
-                                "type": "string",
-                                "example": "65e4decdd286b30065d54af9"
-                              }
-                            }
-                          }
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "$ref": "#/paths/~1water/post/responses/201/content/application~1json/schema/properties/data"
+                      },
+                      "example": [
+                        {
+                          "_id": "63f12345e4567ab89cde9012",
+                          "userId": "63f12345e4567ab89cde9012",
+                          "date": "2024-12-29T20:24",
+                          "volume": 500
                         },
-                        "page": {
-                          "type": "number",
-                          "example": 2
-                        },
-                        "perPage": {
-                          "type": "number",
-                          "example": 4
-                        },
-                        "totalItems": {
-                          "type": "number",
-                          "example": 4
-                        },
-                        "totalPages": {
-                          "type": "number",
-                          "example": 4
-                        },
-                        "hasNextPage": {
-                          "type": "boolean",
-                          "example": false
-                        },
-                        "hasPreviousPage": {
-                          "type": "boolean",
-                          "example": true
+                        {
+                          "_id": "63f12345e4567ab89cde9013",
+                          "userId": "63f12345e4567ab89cde9012",
+                          "date": "2024-12-29T20:24",
+                          "volume": 600
                         }
-                      }
+                      ]
                     }
                   }
                 }
@@ -325,11 +221,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -341,9 +233,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "message"
-                      ],
+                      "required": ["message"],
                       "properties": {
                         "message": {
                           "type": "string",
@@ -355,13 +245,42 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": ["message"],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Water not found"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
       "post": {
-        "tags": [
-          "Students"
-        ],
+        "tags": ["Students"],
         "summary": "Create student",
         "operationId": "createStudent",
         "description": "Create a student with payload",
@@ -375,13 +294,7 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name",
-                  "age",
-                  "gender",
-                  "avgMark",
-                  "parentId"
-                ],
+                "required": ["name", "age", "gender", "avgMark", "parentId"],
                 "properties": {
                   "name": {
                     "description": "Student's name",
@@ -396,11 +309,7 @@
                   "gender": {
                     "description": "Student's age",
                     "type": "string",
-                    "enum": [
-                      "male",
-                      "female",
-                      "other"
-                    ]
+                    "enum": ["male", "female", "other"]
                   },
                   "avgMark": {
                     "description": "Student's average mark. Should be between 1 and 12",
@@ -434,11 +343,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -450,7 +355,29 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/paths/~1water/get/responses/200/content/application~1json/schema/properties/data/properties/data/items"
+                      "required": ["date", "volume", "userId"],
+                      "properties": {
+                        "_id": {
+                          "description": "Water's id",
+                          "type": "string",
+                          "example": "65e4decdd286b30065d54af9"
+                        },
+                        "date": {
+                          "description": "Water's date",
+                          "type": "string",
+                          "example": "2024-12-23T20:23"
+                        },
+                        "volume": {
+                          "description": "Water's volume. Should be minimum 50",
+                          "type": "number",
+                          "example": 50
+                        },
+                        "userId": {
+                          "description": "Water's user id",
+                          "type": "string",
+                          "example": "65e4decdd286b30065d54af9"
+                        }
+                      }
                     }
                   }
                 }

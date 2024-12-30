@@ -14,12 +14,14 @@ import { userInformation } from "../services/user.js";
 export const getWaterController = async (req, res) => {
   const { _id: userId } = req.user;
 
-  const water = await getAllWater(userId);
-
+  const waters = await getAllWater(userId);
+  if (!waters) {
+    throw createHttpError(404, "Water not found!");
+  }
   res.status(200).json({
     status: 200,
-    message: "All water",
-    data: water,
+    message: "Successfully retrieved all water records",
+    data: waters,
   });
 };
 
@@ -29,7 +31,7 @@ export const getWaterByIdController = async (req, res) => {
 
   const water = await getWater({ _id: waterId, userId });
   if (!water) {
-    throw createHttpError(404, "Water not found!");
+    throw createHttpError(404, `Water with id ${waterId} not found`);
   }
 
   res.status(200).json({
@@ -55,7 +57,7 @@ export const deleteWaterController = async (req, res, next) => {
   const { _id: userId } = req.user;
   const water = await deleteWater({ _id: waterId, userId });
   if (!water) {
-    next(createHttpError(404, "Water not found!"));
+    next(createHttpError(404, `Water with id ${waterId} not found!`));
     return;
   }
   res.status(204).send();
