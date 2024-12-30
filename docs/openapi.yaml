@@ -16,6 +16,8 @@ servers:
   - url: https://example.com/api/v1
 paths:
   /water/{id}:
+    delete:
+      $ref: "../swagger/paths/water/{id}/delete.yaml"
     get:
       $ref: "../swagger/paths/water/{id}/get.yaml"
   /water:
