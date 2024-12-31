@@ -5,21 +5,22 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description: This is a documentation of students app
+  description: This is a documentation of AquaTrack app
 tags:
-  - name: Students
-    description: Operations about users.
+  - name: Waters
+    description: Operations about water.
   - name: Auth
     description: Auth operations.
 servers:
-  - url: http://localhost:3000/api-docs
-  - url: https://example.com/api/v1
+  - url: http://localhost:3000
 paths:
   /water/{id}:
     delete:
       $ref: "../swagger/paths/water/{id}/delete.yaml"
     get:
       $ref: "../swagger/paths/water/{id}/get.yaml"
+    patch:
+      $ref: "../swagger/paths/water/{id}/patch.yaml"
   /water:
     get:
       $ref: "../swagger/paths/water/get.yaml"

@@ -26,6 +26,8 @@ responses:
             status:
               type: integer
               example: 204
+  "400":
+    $ref: ../../../components/responses/400WaterId.yaml
   "401":
     $ref: "../../../components/responses/401.yaml"
   "404":

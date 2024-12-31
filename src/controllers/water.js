@@ -45,8 +45,8 @@ export const createWaterController = async (req, res) => {
 
   const water = await createWater({ ...req.body, userId });
 
-  res.status(200).json({
-    status: 200,
+  res.status(201).json({
+    status: 201,
     message: "Successfully created water!",
     data: water,
   });
@@ -62,34 +62,34 @@ export const deleteWaterController = async (req, res, next) => {
   }
   res.status(204).send();
 };
-export const upsertWaterController = async (req, res, next) => {
-  const { _id: userId } = req.user;
-  const { waterId } = req.params;
-  const result = await updateWater({ _id: waterId, userId }, req.body, {
-    upsert: true,
-  });
-  if (!result) {
-    next(createHttpError(404, "Water not found!"));
-    return;
-  }
-  const status = result.isNew ? 201 : 200;
-  res.status(status).json({
-    status,
-    message: `Successfully upserted a water with id ${waterId}! `,
-    data: result,
-  });
-};
+// export const upsertWaterController = async (req, res, next) => {
+//   const { _id: userId } = req.user;
+//   const { waterId } = req.params;
+//   const result = await updateWater({ _id: waterId, userId }, req.body, {
+//     upsert: true,
+//   });
+//   if (!result) {
+//     next(createHttpError(404, "Water not found!"));
+//     return;
+//   }
+//   const status = result.isNew ? 201 : 200;
+//   res.status(status).json({
+//     status,
+//     message: `Successfully upserted a water with id ${waterId}! `,
+//     data: result,
+//   });
+// };
 export const patchWaterController = async (req, res, next) => {
   const { waterId } = req.params;
   const { _id: userId } = req.user;
   const water = await updateWater({ _id: waterId, userId }, req.body);
   if (!water) {
-    next(createHttpError(404, "Water not found!"));
+    next(createHttpError(404, `Water with id ${waterId} not found`));
     return;
   }
   res.status(200).json({
     status: 200,
-    message: `Successfully patched a water with id ${waterId}`,
+    message: `Successfully updated water record with id ${waterId}`,
     data: water,
   });
 };

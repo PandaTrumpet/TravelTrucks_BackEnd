@@ -1,8 +1,8 @@
 tags:
-  - Students
-summary: Create student
-operationId: createStudent
-description: "Create a student with payload"
+  - Waters
+summary: Create water
+operationId: createWater
+description: "Create a water with payload"
 security:
   - bearerAuth: []
 requestBody:
@@ -11,43 +11,25 @@ requestBody:
       schema:
         type: object
         required:
-          - name
-          - age
-          - gender
-          - avgMark
-          - parentId
+          - valume
+          - date
+          - userId
         properties:
-          name:
-            description: "Student's name"
-            type: string
-            example: "John Doe"
-          age:
-            description: "Student's age"
+          valume:
+            description: "Water's valume"
             type: number
-            example: 12
-          gender:
-            description: "Student's age"
+            example: 250
+          date:
+            description: "Date of creating water"
             type: string
-            enum: ["male", "female", "other"]
-          avgMark:
-            description: "Student's average mark. Should be between 1 and 12"
-            type: number
-            example: 9.7
-          onDuty:
-            description: "Whether is student on duty"
-            type: boolean
-            example: false
-          parentId:
-            description: "Student's parent id"
+            example: "2024-12-23T13:25"
+          userId:
+            description: "Water's user id"
             type: string
             example: 65e4decdd286b30065d54af9
-          photo:
-            description: "Student''s photo"
-            type: string
-            format: binary
 responses:
   "201":
-    description: Creates a student
+    description: Successfully created water!
     content:
       application/json:
         schema:
@@ -59,12 +41,14 @@ responses:
           properties:
             status:
               type: integer
-              example: 200
+              example: 201
             message:
               type: string
-              example: Successfully created a student!
+              example: Successfully created water!
             data:
               type: object
               $ref: "../../components/schemas/water.yaml"
   "401":
     $ref: "../../components/responses/401.yaml"
+  "400":
+    $ref: ../../components/responses/400.yaml

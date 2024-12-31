@@ -6,7 +6,6 @@ import {
   deleteWaterController,
   getWaterByIdController,
   getWaterController,
-  upsertWaterController,
   patchWaterController,
   getWatersByMonthController,
   getWatersByDayController,
@@ -28,12 +27,7 @@ router.post(
   ctrlWrapper(createWaterController)
 );
 router.delete("/:waterId", isValidId, ctrlWrapper(deleteWaterController));
-router.put(
-  "/:waterId",
-  isValidId,
-  validateBody(upsertWaterSchema),
-  ctrlWrapper(upsertWaterController)
-);
+
 router.patch(
   "/:waterId",
 

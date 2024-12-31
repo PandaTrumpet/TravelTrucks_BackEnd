@@ -10,7 +10,8 @@
     "dev": "nodemon src/index.js",
     "build": " npm run build-docs",
     "build-docs": "redocly build-docs --output  docs/swagger.json docs/openapi.yaml",
-    "preview-docs": "redocly preview-docs"
+    "preview-docs": "redocly preview-docs",
+    "swaggerToJson":"swagger-cli bundle ./docs/openapi.yaml -o ./docs/swagger.json"
   },
   "keywords": [],
   "author": "dsavontrumpet@gmail.com",
