@@ -1,0 +1,48 @@
+tags:
+  - Auth
+summary: Create
+operationId: create
+description: "Register a new user by providing the necessary information."
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            description: "Email address of the user."
+            type: string
+            example: "john.doe@example.com"
+          password:
+            description: "Password for the user account (min 5 characters)."
+            type: string
+            example: "P@ssw0rd13"
+responses:
+  "201":
+    description: Successfully registered a new user.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a new user.
+            data:
+              type: object
+              $ref: "../../../components/schemas/auth.yaml"
+  "400":
+    $ref: "../../../components/responses/400.yaml"
+  "409":
+    $ref: "../../../components/responses/auth/409.yaml"

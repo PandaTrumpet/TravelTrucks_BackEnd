@@ -11,11 +11,12 @@ import {
 import { userInformation } from "../services/user.js";
 import { refreshUserSession } from "../services/auth.js";
 import { generateAuthUrl } from "../utils/googleOAuth2.js";
+
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
   res.status(201).json({
     status: 201,
-    message: "Successfully registered a new user!",
+    message: "Successfully registered a new user",
     data: user,
   });
 };

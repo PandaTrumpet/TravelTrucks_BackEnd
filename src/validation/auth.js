@@ -5,7 +5,7 @@ export const registerUsersSchema = Joi.object({
   // weight: Joi.number().min(15).max(300),
   // time: Joi.date(),
   email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(3).required(),
+  password: Joi.string().min(5).required(),
   // нужно добавить регулярное выражение для пароля
   // avatar: Joi.string(),
   // waterRate: Joi.number(),

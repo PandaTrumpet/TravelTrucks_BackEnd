@@ -12,10 +12,13 @@ tags:
   - name: Waters
     description: Operations about water.
   - name: Users
-   description: Users operations.
+    description: Users operations.
 servers:
   - url: http://localhost:3000/api
 paths:
+  /auth:
+    post:
+      $ref: "../swagger/paths/auth/register/post.yaml"
   /water/{id}:
     delete:
       $ref: "../swagger/paths/water/{id}/delete.yaml"

@@ -24,7 +24,7 @@ export const registerUser = async (payload) => {
   const user = await UserCollection.findOne({ email: payload.email });
 
   if (user) {
-    throw createHttpError(409, "Email in use!");
+    throw createHttpError(409, "Email in use");
   }
 
   const encryptedPassword = await hashPassword(payload.password);
