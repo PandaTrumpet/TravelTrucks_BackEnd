@@ -16,7 +16,7 @@ export const getWaterController = async (req, res) => {
 
   const waters = await getAllWater(userId);
   if (!waters) {
-    throw createHttpError(404, "Water not found!");
+    throw createHttpError(404, "Water not found.");
   }
   res.status(200).json({
     status: 200,
@@ -47,7 +47,7 @@ export const createWaterController = async (req, res) => {
 
   res.status(201).json({
     status: 201,
-    message: "Successfully created water!",
+    message: "Successfully created water.",
     data: water,
   });
 };
@@ -109,7 +109,7 @@ export const getWatersByMonthController = async (req, res, next) => {
   }
   res.status(200).json({
     status: 200,
-    message: "Successfully found water for a month!",
+    message: "Successfully found water for a month.",
     data: water,
   });
 };
@@ -130,12 +130,12 @@ export const getWatersByDayController = async (req, res, next) => {
   );
 
   if (!water || water.length === 0) {
-    next(createHttpError(404, "No water records found for the given day!"));
+    next(createHttpError(404, "No water records found for the given day."));
     return;
   }
   res.status(200).json({
     status: 200,
-    message: "Successfully found water for a day!",
+    message: "Successfully retrieved water data by day.",
     data: water,
     totalWaterPerDay,
     waterPercentage,

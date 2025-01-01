@@ -1,0 +1,34 @@
+tags:
+  - Users
+summary: Get the total number of users
+operationId: getUserAmount
+description: Retrieve the total count of registered users in the system.
+security:
+  - bearerAuth: []
+responses:
+  "200":
+    description: Successfully retrieved the user count.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Amount of all users
+            data:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  description: Total number of users.
+                  example: 32
+  "401":
+    $ref: ../../components/responses/401.yaml

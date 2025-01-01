@@ -10,7 +10,9 @@ import { upsertUsersSchema } from "../validation/user.js";
 import { upload } from "../middlewares/multer.js";
 const userRouter = Router();
 userRouter.get("/users-amount", ctrlWrapper(usersAmountController));
+
 userRouter.get("/:userId", ctrlWrapper(userInformationController));
+
 userRouter.patch(
   "/:userId",
   upload.single("avatar"),

@@ -1,0 +1,53 @@
+tags:
+  - Waters
+summary: Get water data by month
+operationId: getWaterByDateOfMonth
+description: Retrieve all water records for a month.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: date
+    required: true
+    schema:
+      type: string
+      format: date
+      example: "2024-12"
+    description: The date in format (YYYY-MM).
+responses:
+  "200":
+    description: Successfully retrieved water data by month.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found water for a month.
+            data:
+              type: array
+              items:
+                example:
+                  - _id: "63f12345e4567ab89cde9012"
+                    userId: "63f12345e4567ab89cde9012"
+                    date: "2024-12-12T20:24"
+                    volume: 500
+                  - _id: "63f12345e4567ab89cde9013"
+                    userId: "63f12345e4567ab89cde9012"
+                    date: "2024-12-29T20:24"
+                    volume: 55
+
+  "400":
+    $ref: "../../../components/responses/400.yaml"
+  "401":
+    $ref: "../../../components/responses/401.yaml"
+  "404":
+    $ref: ../../../components/responses/perMonth/404.yaml

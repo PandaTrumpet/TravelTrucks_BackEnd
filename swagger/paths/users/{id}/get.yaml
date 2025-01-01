@@ -1,8 +1,8 @@
 tags:
-  - Waters
-summary: Get water by id
-operationId: getWater
-description: "Get water by id"
+  - Users
+summary: Get user information
+operationId: getUserById
+description: Retrieve detailed information about a user by their ID.
 security:
   - bearerAuth: []
 parameters:
@@ -11,11 +11,11 @@ parameters:
     required: true
     schema:
       type: string
-      description: The unique identifier of the water.
-      example: "65ca67e7ae7f10c88b598384"
+      description: The unique identifier of the user.
+      example: "63f12345e4567ab89cde9012"
 responses:
   "200":
-    description: "Get water by id"
+    description: Successfully retrieved user information.
     content:
       application/json:
         schema:
@@ -30,13 +30,12 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully found water with id 65ca67e7ae7f10c88b598384
+              example: Successfully retrieved user information.
             data:
               type: object
-              $ref: "../../../components/schemas/water.yaml"
-  "400":
-    $ref: ../../../components/responses/400WaterId.yaml
+              $ref: ".././../../components/schemas/user.yaml"
+
   "401":
     $ref: "../../../components/responses/401.yaml"
   "404":
-    $ref: "../../../components/responses/404perId.yaml"
+    $ref: ../../../components/responses/users/404.yaml

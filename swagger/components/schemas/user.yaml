@@ -1,0 +1,53 @@
+type: object
+required:
+  - _id
+  - name
+  - weight
+  - activeTime
+  - email
+  - waterDailyNorma
+  - gender
+  - avatar
+  - createdAt
+  - updatedAt
+properties:
+  _id:
+    description: "User's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  name:
+    description: "User's name"
+    type: string
+    example: "John Doe"
+  weight:
+    description: "User's weight"
+    type: number
+    example: 64
+  activeTime:
+    description: "User's active time"
+    type: number
+    example: 2
+  email:
+    description: "User's email"
+    type: string
+    example: joedoe@gmail.com
+  waterDailyNorma:
+    description: "The amount of water a user should drink"
+    type: number
+    example: 1.4
+  gender:
+    description: "User's gender"
+    type: string
+    enum: ["male", "female"]
+  avatar:
+    description: "User's avatar"
+    type: string
+    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
+  createdAt:
+    description: The date and time when the user was created.
+    type: string
+    example: "2024-12-29T20:33:45Z"
+  updatedAt:
+    description: The date and time when the user information was last updated.
+    type: string
+    example: "2024-12-30T10:15:00Z"

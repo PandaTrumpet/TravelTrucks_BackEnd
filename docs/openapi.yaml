@@ -1,18 +1,20 @@
 openapi: 3.1.0
 info:
   version: 1.0.0
-  title: Students app
+  title: AquaTrack app
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: This is a documentation of AquaTrack app
 tags:
-  - name: Waters
-    description: Operations about water.
   - name: Auth
     description: Auth operations.
+  - name: Waters
+    description: Operations about water.
+  - name: Users
+   description: Users operations.
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3000/api
 paths:
   /water/{id}:
     delete:
@@ -26,6 +28,20 @@ paths:
       $ref: "../swagger/paths/water/get.yaml"
     post:
       $ref: "../swagger/paths/water/post.yaml"
+  /water/month/{date}:
+    get:
+      $ref: "../swagger/paths/water/month/get.yaml"
+  /water/day/{date}:
+    get:
+      $ref: "../swagger/paths/water/day/get.yaml"
+  /users/users-amount:
+    get:
+      $ref: "../swagger/paths/users/getAmount.yaml"
+  /users/{id}:
+    get:
+      $ref: "../swagger/paths/users/{id}/get.yaml"
+    patch:
+      $ref: "../swagger/paths/users/{id}/patch.yaml"
 components:
   securitySchemes:
     bearerAuth:

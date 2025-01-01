@@ -1,0 +1,74 @@
+tags:
+  - Users
+summary: Update user record by id
+operationId: updateUser
+description: Update uers record by providing the id and new data
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: "65ca67e7ae7f10c88b598384"
+    description: The unique identifier of the user record to update
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Update user's name
+            example: Bob Sahe
+          weight:
+            type: number
+            description: Update user's weight
+            example: 54
+          activeTime:
+            type: number
+            description: Update user's active time
+            example: 1
+          waterDailyNorma:
+            type: number
+            description: "Update user's water daily norma"
+            example: 1.1
+          gender:
+            type: string
+            description: Update user's gender
+            example: male
+          avatar:
+            type: string
+            description: Update user's avatar
+            example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
+
+responses:
+  "200":
+    description: Successfully updated user record
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Successfully updated user record with id 65ca67e7ae7f10c88b598384!"
+            data:
+              type: object
+              $ref: ../../../components/schemas/user.yaml
+  "400":
+    $ref: "../../../components/responses/400.yaml"
+  "401":
+    $ref: "../../../components/responses/401.yaml"
+  "404":
+    $ref: "../../../components/responses/users/404.yaml"

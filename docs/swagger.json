@@ -11,25 +11,29 @@
   },
   "tags": [
     {
+      "name": "Auth",
+      "description": "Auth operations."
+    },
+    {
       "name": "Waters",
       "description": "Operations about water."
     },
+
     {
-      "name": "Auth",
-      "description": "Auth operations."
+      "name": "Users",
+
+      "description": "Users operations."
     }
   ],
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "http://localhost:3000/api"
     }
   ],
   "paths": {
     "/water/{id}": {
       "delete": {
-        "tags": [
-          "Waters"
-        ],
+        "tags": ["Waters"],
         "summary": "Delete water record by id",
         "operationId": "deleteWater",
         "description": "Delete a water record by its ID",
@@ -57,9 +61,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status"
-                  ],
+                  "required": ["status"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -82,9 +84,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Waters"
-        ],
+        "tags": ["Waters"],
         "summary": "Get water by id",
         "operationId": "getWater",
         "description": "Get water by id",
@@ -100,6 +100,7 @@
             "required": true,
             "schema": {
               "type": "string",
+              "description": "The unique identifier of the water.",
               "example": "65ca67e7ae7f10c88b598384"
             }
           }
@@ -111,11 +112,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -123,7 +120,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found water with id 65ca67e7ae7f10c88b598384!"
+                      "example": "Successfully found water with id 65ca67e7ae7f10c88b598384"
                     },
                     "data": {
                       "type": "object",
@@ -140,11 +137,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -156,9 +149,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "message"
-                      ],
+                      "required": ["message"],
                       "properties": {
                         "message": {
                           "type": "string",
@@ -180,11 +171,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -196,9 +183,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "message"
-                      ],
+                      "required": ["message"],
                       "properties": {
                         "message": {
                           "type": "string",
@@ -214,9 +199,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Waters"
-        ],
+        "tags": ["Waters"],
         "summary": "Update water record by id",
         "operationId": "updateWater",
         "description": "Update water record by providing the id and new data",
@@ -267,11 +250,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -325,9 +304,7 @@
     },
     "/water": {
       "get": {
-        "tags": [
-          "Waters"
-        ],
+        "tags": ["Waters"],
         "summary": "Get all water records",
         "operationId": "getAllWater",
         "description": "Retrieve all water records from the system",
@@ -343,11 +320,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -389,11 +362,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -405,9 +374,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "message"
-                      ],
+                      "required": ["message"],
                       "properties": {
                         "message": {
                           "type": "string",
@@ -426,11 +393,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -442,9 +405,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "message"
-                      ],
+                      "required": ["message"],
                       "properties": {
                         "message": {
                           "type": "string",
@@ -460,9 +421,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Waters"
-        ],
+        "tags": ["Waters"],
         "summary": "Create water",
         "operationId": "createWater",
         "description": "Create a water with payload",
@@ -476,11 +435,7 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "valume",
-                  "date",
-                  "userId"
-                ],
+                "required": ["valume", "date", "userId"],
                 "properties": {
                   "valume": {
                     "description": "Water's valume",
@@ -509,11 +464,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -528,7 +479,9 @@
                       "required": [
                         "date",
                         "volume",
-                        "userId"
+                        "userId",
+                        "createdAt",
+                        "updatedAt"
                       ],
                       "properties": {
                         "_id": {
@@ -550,6 +503,16 @@
                           "description": "Water's user id",
                           "type": "string",
                           "example": "65e4decdd286b30065d54af9"
+                        },
+                        "createdAt": {
+                          "description": "The date and time when the water was created.",
+                          "type": "string",
+                          "example": "2024-12-29T20:33:45Z"
+                        },
+                        "updatedAt": {
+                          "description": "The date and time when the water information was last updated.",
+                          "type": "string",
+                          "example": "2024-12-30T10:15:00Z"
                         }
                       }
                     }
@@ -564,11 +527,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -580,9 +539,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "message"
-                      ],
+                      "required": ["message"],
                       "properties": {
                         "message": {
                           "type": "string",
@@ -597,6 +554,529 @@
           },
           "401": {
             "$ref": "#/paths/~1water/get/responses/401"
+          }
+        }
+      }
+    },
+    "/water/month/{date}": {
+      "get": {
+        "tags": ["Waters"],
+        "summary": "Get water data by month",
+        "operationId": "getWaterByDateOfMonth",
+        "description": "Retrieve all water records for a month.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2024-12"
+            },
+            "description": "The date in format (YYYY-MM)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved water data by month.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found water for a month."
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "example": [
+                          {
+                            "_id": "63f12345e4567ab89cde9012",
+                            "userId": "63f12345e4567ab89cde9012",
+                            "date": "2024-12-12T20:24",
+                            "volume": 500
+                          },
+                          {
+                            "_id": "63f12345e4567ab89cde9013",
+                            "userId": "63f12345e4567ab89cde9012",
+                            "date": "2024-12-29T20:24",
+                            "volume": 55
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/paths/~1water/post/responses/400"
+          },
+          "401": {
+            "$ref": "#/paths/~1water/get/responses/401"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": ["message"],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "No water records found for the given month."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/water/day/{date}": {
+      "get": {
+        "tags": ["Waters"],
+        "summary": "Get water data by day",
+        "operationId": "getWaterByDateOfDay",
+        "description": "Retrieve all water records for a day.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2024-12-29"
+            },
+            "description": "The date in  format (YYYY-MM-DD)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved water data by day.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data",
+                    "totalWaterPerDay",
+                    "waterPercentage"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully retrieved water data for 2024-12-29."
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "example": [
+                          {
+                            "_id": "63f12345e4567ab89cde9012",
+                            "userId": "63f12345e4567ab89cde9012",
+                            "date": "2024-12-29T20:24",
+                            "volume": 500
+                          },
+                          {
+                            "_id": "63f12345e4567ab89cde9013",
+                            "userId": "63f12345e4567ab89cde9012",
+                            "date": "2024-12-29T20:24",
+                            "volume": 400
+                          }
+                        ]
+                      }
+                    },
+                    "totalWaterPerDay": {
+                      "type": "integer",
+                      "example": 900
+                    },
+                    "waterPercentage": {
+                      "type": "number",
+                      "example": 34.2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/paths/~1water/post/responses/400"
+          },
+          "401": {
+            "$ref": "#/paths/~1water/get/responses/401"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": ["message"],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "No water records found for the given day."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/users-amount": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get the total number of users",
+        "operationId": "getUserAmount",
+        "description": "Retrieve the total count of registered users in the system.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the user count.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Amount of all users"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "integer",
+                          "description": "Total number of users.",
+                          "example": 32
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/paths/~1water/get/responses/401"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user information",
+        "operationId": "getUserById",
+        "description": "Retrieve detailed information about a user by their ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The unique identifier of the user.",
+              "example": "63f12345e4567ab89cde9012"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully retrieved user information."
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "_id",
+                        "name",
+                        "weight",
+                        "activeTime",
+                        "email",
+                        "waterDailyNorma",
+                        "gender",
+                        "avatar",
+                        "createdAt",
+                        "updatedAt"
+                      ],
+                      "properties": {
+                        "_id": {
+                          "description": "User's id",
+                          "type": "string",
+                          "example": "65e4decdd286b30065d54af9"
+                        },
+                        "name": {
+                          "description": "User's name",
+                          "type": "string",
+                          "example": "John Doe"
+                        },
+                        "weight": {
+                          "description": "User's weight",
+                          "type": "number",
+                          "example": 64
+                        },
+                        "activeTime": {
+                          "description": "User's active time",
+                          "type": "number",
+                          "example": 2
+                        },
+                        "email": {
+                          "description": "User's email",
+                          "type": "string",
+                          "example": "joedoe@gmail.com"
+                        },
+                        "waterDailyNorma": {
+                          "description": "The amount of water a user should drink",
+                          "type": "number",
+                          "example": 1.4
+                        },
+                        "gender": {
+                          "description": "User's gender",
+                          "type": "string",
+                          "enum": ["male", "female"]
+                        },
+                        "avatar": {
+                          "description": "User's avatar",
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+                        },
+                        "createdAt": {
+                          "description": "The date and time when the user was created.",
+                          "type": "string",
+                          "example": "2024-12-29T20:33:45Z"
+                        },
+                        "updatedAt": {
+                          "description": "The date and time when the user information was last updated.",
+                          "type": "string",
+                          "example": "2024-12-30T10:15:00Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/paths/~1water/get/responses/401"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": ["message"],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User with id 67719abf3fc799eedfd041ba not found`"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update user record by id",
+        "operationId": "updateUser",
+        "description": "Update uers record by providing the id and new data",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            },
+            "description": "The unique identifier of the user record to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Update user's name",
+                    "example": "Bob Sahe"
+                  },
+                  "weight": {
+                    "type": "number",
+                    "description": "Update user's weight",
+                    "example": 54
+                  },
+                  "activeTime": {
+                    "type": "number",
+                    "description": "Update user's active time",
+                    "example": 1
+                  },
+                  "waterDailyNorma": {
+                    "type": "number",
+                    "description": "Update user's water daily norma",
+                    "example": 1.1
+                  },
+                  "gender": {
+                    "type": "string",
+                    "description": "Update user's gender",
+                    "example": "male"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "description": "Update user's avatar",
+                    "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated user record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated user record with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/paths/~1users~1%7Bid%7D/get/responses/200/content/application~1json/schema/properties/data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/paths/~1water/post/responses/400"
+          },
+          "401": {
+            "$ref": "#/paths/~1water/get/responses/401"
+          },
+          "404": {
+            "$ref": "#/paths/~1users~1%7Bid%7D/get/responses/404"
           }
         }
       }
