@@ -14,7 +14,7 @@ tags:
   - name: Users
     description: Users operations.
 servers:
-  - url: http://localhost:3000/api
+  - url: https://aquatrack-backend-w69c.onrender.com/api
 paths:
   /water/{id}:
     delete:
