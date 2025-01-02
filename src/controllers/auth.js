@@ -37,14 +37,14 @@ export const loginUserController = async (req, res, next) => {
   });
   res.json({
     status: 200,
-    message: "Successfully logged in an user!",
+    message: "Successfully logged in",
     data: { accessToken: session.accessToken, userData },
   });
 };
 
 export const logoutUserController = async (req, res, next) => {
   if (!req.cookies.sessionId) {
-    throw createHttpError(401, "Session not found!");
+    throw createHttpError(401, "Session not found");
   }
 
   await logoutUser(req.cookies.sessionId);
@@ -71,14 +71,15 @@ export const refreshUserSessionController = async (req, res, next) => {
   });
 
   if (!session) {
-    throw createHttpError(401, "Session not found!");
+    throw createHttpError(401, "Session not found.");
   }
   setupSession(res, session);
   res.json({
     status: 200,
-    message: "Successfully refreshed a session!",
+    message: "Token refreshed successfully.",
     data: {
       accessToken: session.accessToken,
+      refreshToken: session.refreshToken,
     },
   });
 };
@@ -87,7 +88,7 @@ export const requestResetEmailController = async (req, res, next) => {
   await requestResetToken(req.body.email);
   res.json({
     status: 200,
-    message: "Reset password email was successfully sent!",
+    message: "Reset password email was successfully sent",
     data: {},
   });
 };
@@ -95,7 +96,7 @@ export const requestResetEmailController = async (req, res, next) => {
 export const resetPasswordController = async (req, res) => {
   await resetPassword(req.body);
   res.json({
-    message: "Password was successfully reset!",
+    message: "Password was successfully reset",
     status: 200,
     data: {},
   });
@@ -105,7 +106,7 @@ export const getGoogleOAuthUrlController = async (req, res) => {
   const url = generateAuthUrl();
   res.json({
     status: 200,
-    message: "Successfully generated google oauth url!",
+    message: "Successfully generated google oauth url",
     data: { url },
   });
 };
@@ -114,7 +115,7 @@ export const loginWithGoogleController = async (req, res) => {
   setupSession(res, session);
   res.json({
     status: 200,
-    message: "Successfully logged in via Google OAuth!",
+    message: "Successfully logged in via Google OAuth",
     data: {
       accessToken: session.accessToken,
     },

@@ -1,25 +1,25 @@
-import createHttpError from "http-errors";
-import { UserCollection } from "../db/models/users.js";
-import jwt from "jsonwebtoken";
-import { randomBytes } from "crypto";
 import bcrypt from "bcrypt";
-import { SessionCollection } from "../db/models/session.js";
+import { randomBytes } from "crypto";
+import handlebars from "handlebars";
+import createHttpError from "http-errors";
+import jwt from "jsonwebtoken";
+import fs from "node:fs/promises";
+import path from "node:path";
 import {
-  ONE_DAY,
   FIFTEEN_MINUTES,
+  ONE_DAY,
   SMTP,
   TEMPLATES_DIR,
 } from "../constans/index.js";
-import { hashPassword, comparePassword } from "../utils/hash.js";
+import { SessionCollection } from "../db/models/session.js";
+import { UserCollection } from "../db/models/users.js";
 import { env } from "../utils/env.js";
-import { sendEmail } from "../utils/sendMail.js";
-import path from "node:path";
-import fs from "node:fs/promises";
-import handlebars from "handlebars";
 import {
   getFullNameFromGoogleTokenPayload,
   validateCode,
 } from "../utils/googleOAuth2.js";
+import { comparePassword, hashPassword } from "../utils/hash.js";
+import { sendEmail } from "../utils/sendMail.js";
 export const registerUser = async (payload) => {
   const user = await UserCollection.findOne({ email: payload.email });
 
@@ -37,12 +37,12 @@ export const registerUser = async (payload) => {
 export const loginUser = async (payload) => {
   const user = await UserCollection.findOne({ email: payload.email });
   if (!user) {
-    throw createHttpError(404, "User not found!");
+    throw createHttpError(404, "User not found");
   }
 
   const isEqual = await comparePassword(payload.password, user.password);
   if (!isEqual) {
-    throw createHttpError(401, "Password invalid!");
+    throw createHttpError(401, "Password invalid");
   }
 
   await SessionCollection.deleteOne({ userId: user._id });
@@ -100,7 +100,7 @@ export const refreshUserSession = async ({ sessionId, refreshToken }) => {
 export const requestResetToken = async (email) => {
   const user = await UserCollection.findOne({ email });
   if (!user) {
-    throw createHttpError(404, "User nit found!");
+    throw createHttpError(404, "User not found!");
   }
   const resetToken = jwt.sign(
     {

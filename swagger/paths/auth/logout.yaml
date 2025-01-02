@@ -1,0 +1,52 @@
+tags:
+  - Auth
+summary: User logout
+operationId: logoutUser
+description: Logout the authenticated user and invalidate their session.
+security:
+  - bearerAuth: []
+responses:
+  "204":
+    description: Successfully logged out the user.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+          properties:
+            status:
+              type: integer
+              example: 204
+  "401":
+    description: Unauthorized.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: "Unauthorized. Session not found."
+  "500":
+    description: Internal server error.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: "An unexpected error occurred."

@@ -1,0 +1,63 @@
+tags:
+  - Auth
+summary: Retrieve Google OAuth authorization URL
+operationId: getGoogleOAuthUrl
+description: Returns the URL for initiating the OAuth authorization process specifically for Google.
+security:
+  - bearerAuth: []
+responses:
+  "200":
+    description: Successfully retrieved the Google OAuth URL.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully generated Google OAuth URL.
+            data:
+              type: object
+              properties:
+                url:
+                  type: string
+                  example: "https://accounts.google.com/o/oauth2/auth?client_id=your-client-id&redirect_uri=your-redirect-uri&response_type=code&scope=email"
+  "401":
+    description: UnauthorizedError.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: "UnauthorizedError"
+  "500":
+    description: Internal server error.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: "An unexpected error occurred."

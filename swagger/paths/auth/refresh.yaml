@@ -1,0 +1,84 @@
+tags:
+  - Auth
+summary: Refresh authentication token
+operationId: refreshToken
+description: Refresh the user's authentication token using a valid bearer access token.
+security:
+  - bearerAuth: []
+responses:
+  "200":
+    description: Successfully refreshed the authentication token.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Token refreshed successfully."
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  description: The new access token.
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNjE2MjM5MDIyfQ.Gg4ddfR9D8yVVn3BlUw"
+                refreshToken:
+                  type: string
+                  description: The new refresh token.
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNjE2MjM5MDIyfQ.s4sfNmZodV8W2N3Buv7wHZc5GDSvLoRdOdRx3R9HGsU"
+  "400":
+    description: Bad request.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: "Invalid request."
+  "401":
+    description: Unauthorized.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: "Unauthorized or invalid token."
+  "500":
+    description: Internal server error.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: "An unexpected error occurred."

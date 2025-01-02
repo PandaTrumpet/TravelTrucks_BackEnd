@@ -32,7 +32,9 @@ router.post(
   ctrlWrapper(loginUserController)
 );
 router.post("/logout", ctrlWrapper(logoutUserController));
+
 router.post("/refresh", ctrlWrapper(refreshUserSessionController));
+
 router.post(
   "/reset-password",
   validateBody(resetPasswordSchema),
@@ -43,6 +45,7 @@ router.post(
   validateBody(requestResetEmailSchema),
   ctrlWrapper(requestResetEmailController)
 );
+
 router.get("/get-oauth-url", ctrlWrapper(getGoogleOAuthUrlController));
 router.post("/confirm-oauth", ctrlWrapper(loginWithGoogleController));
 export default router;
