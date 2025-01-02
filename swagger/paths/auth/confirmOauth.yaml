@@ -1,0 +1,93 @@
+tags:
+  - Auth
+summary: Confirm OAuth Authentication
+operationId: confirmOAuth
+description: Confirms the OAuth authentication process by validating the provided access token.
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - code
+        properties:
+          code:
+            type: string
+            description: The OAuth access code obtained from the provider.
+            example: "y/a0AfH6SMDx8aZB7kT3Q1VVQjUfwL6X1234567890abcdefg"
+responses:
+  "200":
+    description: Successfully confirmed OAuth authentication.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully logged in via Google OAuth.
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  description: The ID of the authenticated user.
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+  "400":
+    description: Bad request.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: "Invalid or missing access token."
+  "401":
+    description: UnauthorizedError.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: "UnauthorizedError"
+  "500":
+    description: Internal server error.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: "An unexpected error occurred."
