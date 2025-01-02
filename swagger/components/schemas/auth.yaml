@@ -1,4 +1,6 @@
 type: object
+required:
+  - email
 properties:
   _id:
     type: string

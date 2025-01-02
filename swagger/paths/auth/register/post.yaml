@@ -1,10 +1,11 @@
 tags:
   - Auth
-summary: Create
-operationId: create
+summary: Create user
+operationId: createUser
 description: "Register a new user by providing the necessary information."
+security:
+  - bearerAuth: []
 requestBody:
-  required: true
   content:
     application/json:
       schema:

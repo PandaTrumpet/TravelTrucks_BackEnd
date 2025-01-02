@@ -29,168 +29,6 @@
     }
   ],
   "paths": {
-    "/auth": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "Authentification",
-        "operationId": "registerUser",
-        "description": "Register a new user by providing the necessary information.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["email", "password"],
-                "properties": {
-                  "email": {
-                    "description": "Email address of the user.",
-                    "type": "string",
-                    "example": "john.doe@example.com"
-                  },
-                  "password": {
-                    "description": "Password for the user account (min 5 characters).",
-                    "type": "string",
-                    "example": "P@ssw0rd123"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successfully registered a new user.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": ["status", "message", "data"],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 201
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully registered a new user."
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": ["email", "password"],
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "description": "Unique identifier for the user.",
-                          "example": "63f12345e4567ab89cde9012"
-                        },
-                        "weight": {
-                          "description": "User's weight",
-                          "type": "number",
-                          "example": 0
-                        },
-                        "activeTime": {
-                          "description": "User's active time",
-                          "type": "number",
-                          "example": 2
-                        },
-                        "email": {
-                          "type": "string",
-                          "description": "Email address of the user.",
-                          "example": "john.doe@example.com"
-                        },
-                        "waterDailyNorma": {
-                          "description": "The amount of water a user should drink",
-                          "type": "number",
-                          "example": 1.4
-                        },
-                        "gender": {
-                          "description": "User's gender",
-                          "type": "string",
-                          "example": "male"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "description": "The date and time when the user was created.",
-                          "example": "2024-12-29T20:33:45Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "description": "The date and time when the user information was last updated.",
-                          "example": "2024-12-30T10:15:00Z"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": ["status", "message", "data"],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 400
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Bad Request"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": ["message"],
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Invalid request parameters."
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "ConflictError",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": ["status", "message", "data"],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 409
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "ConflictError"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": ["message"],
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Email in use"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/water/{id}": {
       "delete": {
         "tags": ["Waters"],
@@ -451,7 +289,7 @@
             }
           },
           "400": {
-            "$ref": "#/paths/~1auth/post/responses/400"
+            "$ref": "#/paths/~1water/post/responses/400"
           },
           "401": {
             "$ref": "#/paths/~1water/get/responses/401"
@@ -682,7 +520,35 @@
             }
           },
           "400": {
-            "$ref": "#/paths/~1auth/post/responses/400"
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": ["message"],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Invalid request parameters."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/paths/~1water/get/responses/401"
@@ -756,7 +622,7 @@
             }
           },
           "400": {
-            "$ref": "#/paths/~1auth/post/responses/400"
+            "$ref": "#/paths/~1water/post/responses/400"
           },
           "401": {
             "$ref": "#/paths/~1water/get/responses/401"
@@ -875,7 +741,7 @@
             }
           },
           "400": {
-            "$ref": "#/paths/~1auth/post/responses/400"
+            "$ref": "#/paths/~1water/post/responses/400"
           },
           "401": {
             "$ref": "#/paths/~1water/get/responses/401"
@@ -1202,13 +1068,151 @@
             }
           },
           "400": {
-            "$ref": "#/paths/~1auth/post/responses/400"
+            "$ref": "#/paths/~1water/post/responses/400"
           },
           "401": {
             "$ref": "#/paths/~1water/get/responses/401"
           },
           "404": {
             "$ref": "#/paths/~1users~1%7Bid%7D/get/responses/404"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Create user",
+        "operationId": "createUser",
+        "description": "Register a new user by providing the necessary information.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": {
+                    "description": "Email address of the user.",
+                    "type": "string",
+                    "example": "john.doe@example.com"
+                  },
+                  "password": {
+                    "description": "Password for the user account (min 5 characters).",
+                    "type": "string",
+                    "example": "P@ssw0rd13"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully registered a new user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created a new user."
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": ["email"],
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "Unique identifier for the user.",
+                          "example": "63f12345e4567ab89cde9012"
+                        },
+                        "weight": {
+                          "description": "User's weight",
+                          "type": "number",
+                          "example": 0
+                        },
+                        "activeTime": {
+                          "description": "User's active time",
+                          "type": "number",
+                          "example": 2
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "Email address of the user.",
+                          "example": "john.doe@example.com"
+                        },
+                        "waterDailyNorma": {
+                          "description": "The amount of water a user should drink",
+                          "type": "number",
+                          "example": 1.4
+                        },
+                        "gender": {
+                          "description": "User's gender",
+                          "type": "string",
+                          "example": "male"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "description": "The date and time when the user was created.",
+                          "example": "2024-12-29T20:33:45Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "description": "The date and time when the user information was last updated.",
+                          "example": "2024-12-30T10:15:00Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/paths/~1water/post/responses/400"
+          },
+          "409": {
+            "description": "ConflictError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "data"],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 409
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "ConflictError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": ["message"],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Email in use"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
