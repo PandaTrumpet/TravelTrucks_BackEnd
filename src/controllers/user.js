@@ -5,7 +5,6 @@ import { env } from "../utils/env.js";
 import { saveFileToCloudinary } from "../utils/saveFileToCloudinary.js";
 export const userInformationController = async (req, res, next) => {
   const { userId } = req.params;
-  // console.log(userId);
 
   const user = await userInformation(userId);
   if (!user) {
@@ -30,7 +29,6 @@ export const upsertUserController = async (req, res, next) => {
       photoUrl = await saveFileToUploadDir(photo);
     }
   }
-  // console.log(photo);
 
   const result = await updateUser(
     userId,
@@ -42,7 +40,7 @@ export const upsertUserController = async (req, res, next) => {
     return;
   }
   const status = result.isNew ? 201 : 200;
-  // console.log(status);
+
   res.status(status).json({
     status,
     message: `Successfully upserted a user with id ${userId}`,

@@ -1,7 +1,6 @@
 import { WatersCollection } from "../db/models/water.js";
 export const getAllWater = async (userId) => {
   const water = await WatersCollection.find({ userId });
-  // console.log(water);
 
   return water;
 };

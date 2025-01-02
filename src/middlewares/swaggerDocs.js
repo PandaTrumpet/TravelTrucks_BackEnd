@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import createHttpError from "http-errors";
 import swaggerUI from "swagger-ui-express";
 import fs from "node:fs";
@@ -13,26 +14,3 @@ export const swaggerDocs = () => {
       next(createHttpError(500, "Can't load swagger docs"));
   }
 };
-
-// import createHttpError from "http-errors";
-// import swaggerUI from "swagger-ui-express";
-// import fs from "fs";
-
-// import { SWAGGER_PATH } from "../constans/index.js";
-
-// export const swaggerDocs = () => {
-//   let swaggerDoc;
-
-//   try {
-//     swaggerDoc = JSON.parse(fs.readFileSync(SWAGGER_PATH, "utf-8"));
-//   } catch (err) {
-//     console.error("Failed to load Swagger docs:", err.message);
-//     return (req, res, next) =>
-//       next(createHttpError(500, "Can't load Swagger docs"));
-//   }
-
-//   return [
-//     swaggerUI.serve,
-//     (req, res, next) => swaggerUI.setup(swaggerDoc)(req, res, next),
-//   ];
-// };

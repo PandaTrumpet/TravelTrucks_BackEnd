@@ -17,7 +17,6 @@ import {
   getGoogleOAuthUrlController,
   loginWithGoogleController,
 } from "../controllers/auth.js";
-// import { authenticate } from "../middlewares/authenticate.js";
 
 const router = Router();
 

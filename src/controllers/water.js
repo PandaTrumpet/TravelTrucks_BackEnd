@@ -62,23 +62,7 @@ export const deleteWaterController = async (req, res, next) => {
   }
   res.status(204).send();
 };
-// export const upsertWaterController = async (req, res, next) => {
-//   const { _id: userId } = req.user;
-//   const { waterId } = req.params;
-//   const result = await updateWater({ _id: waterId, userId }, req.body, {
-//     upsert: true,
-//   });
-//   if (!result) {
-//     next(createHttpError(404, "Water not found!"));
-//     return;
-//   }
-//   const status = result.isNew ? 201 : 200;
-//   res.status(status).json({
-//     status,
-//     message: `Successfully upserted a water with id ${waterId}! `,
-//     data: result,
-//   });
-// };
+
 export const patchWaterController = async (req, res, next) => {
   const { waterId } = req.params;
   const { _id: userId } = req.user;
@@ -116,11 +100,11 @@ export const getWatersByMonthController = async (req, res, next) => {
 
 export const getWatersByDayController = async (req, res, next) => {
   const { _id: userId } = req.user;
-  // console.log(userId);
+
   const { date } = req.params;
   const water = await getWatersByDay(userId, date);
   const totalWaterPerDay = water.reduce((acc, item) => acc + item.volume, 0);
-  // console.log(totalWaterDay);
+
   const userInfo = await userInformation(userId);
   const waterDailyNormaOfUser = userInfo.waterDailyNorma;
 

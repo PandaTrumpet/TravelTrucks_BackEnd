@@ -78,7 +78,6 @@ export const refreshUserSession = async ({ sessionId, refreshToken }) => {
     _id: sessionId,
     refreshToken,
   });
-  // console.log(session);
 
   if (!session) {
     throw createHttpError(401, "Session not found!");

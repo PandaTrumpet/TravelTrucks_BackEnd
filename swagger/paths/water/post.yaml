@@ -11,7 +11,7 @@ requestBody:
       schema:
         type: object
         required:
-          - valume
+          - volume
           - date
           - userId
         properties:
